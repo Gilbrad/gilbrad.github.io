@@ -1,0 +1,479 @@
+@import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap');
+
+:root {
+    --mainMargin: 4rem;
+    --centerX: calc(50vw - var(--mainMargin) - 50%);
+    --centerY: calc(50vh - 50%);
+}
+
+* {
+    font-family: "Kode Mono", monospace;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+*::before, *::after {
+    box-sizing: border-box;
+}
+
+body {
+    background:
+        linear-gradient(135deg, rgb(255 255 255 / 0.035), transparent 36%),
+        #212121;
+    overflow: hidden;
+}
+
+/* Main Content Container */
+
+.main {
+    height: 100vh;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    overflow: hidden; 
+    margin: 0 var(--mainMargin);
+}
+
+.main > div {
+    min-width: 0;
+}
+
+.main p {
+    font-size: 3rem;
+    text-align: center;
+}
+
+/* My Container */
+
+.my-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    flex: 0 0 100%;
+    transition:
+        flex-basis 1s,
+        width 1s;
+}
+
+.profile-container {
+    width: fit-content;
+    max-width: 100%;
+    transition: transform 1s;
+    transform: translate(var(--centerX), var(--centerY));
+}
+
+.dialogue-container {
+    flex: 0 0 auto;
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dialogue-container p {
+    text-align: left;
+    color: #ffffff;
+}
+
+.img-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    height: 0;
+    margin-top: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition:
+        height 1s,
+        margin-top 1s,
+        opacity 0.4s;
+}
+
+#me {
+    width: 50%;
+    height: 58vh;
+    object-position: top center;
+    object-fit: cover;
+    display: block;
+    transform: translateY(100%);
+    transition: transform 1s;
+}
+
+.main.active .img-container {
+    height: 58vh;
+    margin-top: 2rem;
+    opacity: 1;
+}
+
+.main.active #me {
+    transform: translateY(0);
+    -webkit-mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+    mask-image: linear-gradient(to bottom, black 40%, transparent 100%);
+}
+
+.bio-container {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: 
+        height 1s,
+        opacity 0.6s;
+}
+
+#dialogue {
+    transition: font-size 1s;
+}
+
+#my-title {
+    font-size: 2rem;
+    color: #cecece;
+}
+
+#my-slogan {
+    font-size: 1.1rem;
+    font-style: italic;
+    color:hsl(0, 0%, 61%);
+}
+
+.bio-container > div {
+    width: fit-content;
+}
+
+.main.show .bio-container {
+    height: 10vh;
+    opacity: 1;
+}
+
+.main.show #dialogue {
+    font-size: 3.2rem;
+}
+
+.main.intro-done .my-container {
+    flex-basis: 35%;
+    width: 35%;
+}
+
+.main.intro-done .profile-container {
+    transform: translate(0, 5rem);
+}
+
+.contact-container {
+    margin-top: auto;
+    padding-bottom: 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(1rem);
+    transition:
+        opacity 0.6s,
+        transform 1s;
+}
+
+.contact-container p {
+    color: #cecece;
+    font-size: 1rem;
+    text-align: left;
+    margin-bottom: 0.3rem;
+}
+
+.contact-container a {
+    color: hsl(0, 0%, 61%);
+    display: block;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition:
+        color 0.2s,
+        transform 0.2s;
+}
+
+.contact-container a:hover {
+    color: #fff;
+    transform: translateX(0.4rem);
+}
+
+.main.intro-done .contact-container {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+
+/* Main Body Container */
+
+.main-body-container {
+    display: flex;
+    flex: 0 0 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: auto;
+    height: 100%;
+    width: 0;
+    min-width: 0;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(4rem);
+    transition:
+        flex-basis 1s,
+        width 1s,
+        opacity 0.6s,
+        transform 1s;
+}
+
+.main-body-container::-webkit-scrollbar {
+    width: 0.5rem;
+}
+
+.main-body-container::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 18%);
+}
+
+.main-body-container::-webkit-scrollbar-thumb {
+    background: #03ddff;
+    border-radius: 1rem;
+}
+
+.main-body-container::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
+.main-body-padder {
+    width: 100%;
+    padding: 6rem 5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5rem;
+}
+
+.main-body-padder > div {
+    display: flex;
+    width: 100%;
+}
+
+.main-body-padder p {
+    font-size: 1.05rem;
+    line-height: 1.45;
+    text-align: left;
+}
+
+.body-section {
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.body-heading {
+    color: #cecece;
+    font-size: 1.4rem;
+}
+
+.body-text {
+    color: #ffffff;
+}
+
+.listing-title {
+    color: #03ddff;
+    font-size: 1.05rem;
+}
+
+.listing-detail {
+    color: #ffffff;
+    font-size: 0.95rem;
+}
+
+.listing-date,
+.listing-tech {
+    color: hsl(0, 0%, 61%);
+    font-size: 0.9rem;
+}
+
+.main.intro-done .main-body-container {
+    flex-basis: 65%;
+    width: 65%;
+    pointer-events: auto;
+    transform: translateX(0);
+}
+
+.main.shifted .main-body-container {
+    opacity: 1;
+}
+
+#skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    text-align: center;
+}
+
+#skills-list img {
+    height: 1.75rem;
+}
+
+/* Education */
+
+.education {
+    display: flex;
+    flex-direction: column;
+}
+
+.educ-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 3rem;
+}
+
+.educ-listing {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 0 0 calc((100% - 3rem) / 2);
+    gap: 0.5rem;
+    padding-left: 1rem;
+    border-left: 2px solid hsl(0, 0%, 25%);
+}
+
+.educ-images {
+    width: 7rem;
+    height: auto;
+    margin-top: 1rem;
+    align-self: center;
+}
+
+/* Projects and Experience */
+
+.project-list,
+.work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.3rem;
+}
+
+.project-listing,
+.work-listing {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-left: 1rem;
+    border-left: 2px solid hsl(0, 0%, 25%);
+}
+
+/* Mobile */
+
+@media (max-width: 800px) {
+    :root {
+        --mainMargin: 1.5rem;
+    }
+
+    body {
+        overflow: auto; 
+    }
+
+    .main {
+        display: block; 
+        height: auto; 
+        min-height: 100vh; 
+        overflow: visible; 
+    }
+
+    .my-container, 
+    .main.intro-done .my-container, 
+    .main.intro-done .main-body-container {
+        width: 100%; 
+        flex: none; 
+    }
+
+    .my-container {
+        height: auto;
+        overflow: visible;
+    }
+
+    .profile-container {
+        transform: translate(var(--centerX), calc(45vh - 50%));
+    }
+
+    .main.intro-done .profile-container {
+        transform: none; 
+        padding-top: 3rem; 
+    }
+
+    .dialogue-container > p, 
+    .main.show #dialogue {
+        font-size: 2rem; 
+    }
+
+    #my-title {
+        font-size: 1.2rem;
+    }
+
+    #my-slogan {
+        font-size: 0.9rem;
+    }
+
+    .main.show .bio-container {
+        height: 4.8rem;
+    }
+
+    .contact-container {
+        margin-top: 2rem;
+        padding-bottom: 4rem;
+    }
+
+    .main-body-container {
+        height: auto;
+        width: 100%;
+        flex: none;
+        overflow: visible;
+        opacity: 0;
+        transform: translateY(1rem);
+    }
+
+    .main.intro-done .main-body-container {
+        opacity: 1;
+        transform: none;
+        pointer-events: auto;
+    }
+
+    .main-body-padder { 
+        padding: 0 0 4rem; 
+        gap: 4rem; 
+    }
+
+    .body-heading, 
+    .contact-container p {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    #skills-list {
+        justify-content: flex-start;
+    }
+    
+    .educ-list {
+        flex-direction: column;
+        gap: 1.5rem; 
+    }
+
+    .educ-listing {
+        flex: none;
+        width: 100%;
+    }
+
+    .educ-images {
+        width: 5rem;
+        align-self: flex-start; 
+    }
+}

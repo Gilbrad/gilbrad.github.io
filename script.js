@@ -59,7 +59,7 @@ function imgTransitionEnd(e) {
         setTimeout(() => {
             main.classList.remove("active");
             transitionCount++;
-        }, 1000);
+        }, 600);
     } else if (e.propertyName === "transform" && transitionCount === 1) {
         setTimeout(() => {
             main.classList.add("show");

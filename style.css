@@ -319,6 +319,11 @@ body {
 
 #skills-list img {
     height: 1.75rem;
+    transition: scale 0.2s;
+}
+
+#skills-list > img:hover {
+    scale: 1.5;
 }
 
 /* Education */

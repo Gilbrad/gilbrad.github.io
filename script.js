@@ -6,10 +6,15 @@ const bioContainer = document.querySelector(".bio-container");
 const mainBodyContainer = document.querySelector(".main-body-container");
 const isMobile = window.matchMedia("(max-width: 800px)");
 
+// Intro dialogue array.
 const introDialogue = ["Hello there!", "Here to take a peek?", "Gilean Cyrus Alanza"];
-let isTyping = true;
-let dialogueIndex = 0;
 
+let isTyping = true; // Flag to indicate if the typewriter effect is currently typing.
+let dialogueIndex = 0; // Index to keep track of the current dialogue being typed.
+let firstTransitionDone = false;; // Flag to indicate if the first transition of the hidden image of me is complete.
+
+// Typewriter effect for the intro dialogue.
+// After the last dialogue is typed, the class "active" is added to the main element, which triggers the transition of the hidden image of me.
 function typeWriter(text, index) {
     isTyping = true;
     if (index < text.length) {
@@ -29,19 +34,40 @@ function typeWriter(text, index) {
     }
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    arrow.style.visibility = "hidden";
-    arrow.innerHTML = " >";
-    typeWriter(introDialogue[dialogueIndex], 0);
-});
+// Handles the transition end event for the image element.
+// Class "active" is used to show the hidden image of me. Removing it hides the image again.
+// Class "show" is used to show the biography under my name.
+function imgTransitionEnd(e) {
+    if (e.propertyName === "transform" && !firstTransitionDone) {
+        setTimeout(() => {
+            main.classList.remove("active");
+            firstTransitionDone = true;
+        }, 600);
+    } else if (e.propertyName === "transform" && firstTransitionDone) {
+        setTimeout(() => {
+            main.classList.add("show");
+        }, 100);
+    }
+}
 
-setInterval(() => {
-    if (!isTyping) {
-        arrow.style.visibility = arrow.style.visibility === "hidden" ? "" : "hidden";
-    } else arrow.style.visibility = "hidden";
-}, 500);
+// Adds the intro-done class to the main element.
+// Class "intro-done" is used to shift the layout of the website to its final state after the intro animation is complete.
+function bioTransitionEnd(e) {
+    if (e.propertyName === "height") {
+        main.classList.add("intro-done");
+    }
+}
 
-main.addEventListener("click", () => {
+// Adds the shifted class to the main element after the final layout transition is complete.
+// Class "shifted" is used to turn the main body container's opacity from 0 to 1.
+function mainBodyTransitionEnd(e) {
+    if (e.propertyName === "width") {
+        main.classList.add("shifted");
+    }
+}
+
+// Handles dialogue progression on click, keydown, or wheel events.
+function handleDialogue(){
     if (!isTyping && dialogueIndex < introDialogue.length - 1) {
         dialogue.innerHTML = "";
         dialogueIndex++;
@@ -50,36 +76,26 @@ main.addEventListener("click", () => {
         }
         typeWriter(introDialogue[dialogueIndex], 0);
     }
+}
+
+// Blinks the arrow every 500ms if typewriter is done, otherwise hidden.
+setInterval(() => {
+    if (!isTyping) {
+        arrow.style.visibility = arrow.style.visibility === "hidden" ? "" : "hidden";
+    } else arrow.style.visibility = "hidden";
+}, 500);
+
+// Starts typewriter on page load.
+document.addEventListener("DOMContentLoaded", function() {
+    arrow.style.visibility = "hidden";
+    arrow.innerHTML = " >";
+    typeWriter(introDialogue[dialogueIndex], 0);
 });
 
-let transitionCount = 0;
-
-function imgTransitionEnd(e) {
-    if (e.propertyName === "transform" && transitionCount === 0) {
-        setTimeout(() => {
-            main.classList.remove("active");
-            transitionCount++;
-        }, 600);
-    } else if (e.propertyName === "transform" && transitionCount === 1) {
-        setTimeout(() => {
-            main.classList.add("show");
-            transitionCount++;
-        }, 100);
-    }
-}
-
-function bioTransitionEnd(e) {
-    if (e.propertyName === "height") {
-        main.classList.add("intro-done");
-    }
-}
-
-function mainBodyTransitionEnd(e) {
-    if (e.propertyName === "width") {
-        main.classList.add("shifted");
-    }
-}
-
+// Event Listeners
 myImage.addEventListener("transitionend", imgTransitionEnd);
 bioContainer.addEventListener("transitionend", bioTransitionEnd);
 mainBodyContainer.addEventListener("transitionend", mainBodyTransitionEnd);
+main.addEventListener("click", handleDialogue);
+window.addEventListener("keydown", handleDialogue);
+main.addEventListener("wheel", handleDialogue);

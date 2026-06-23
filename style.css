@@ -130,11 +130,14 @@ body {
 }
 
 #dialogue {
-    transition: font-size 1s;
+    transition: 
+        font-size 1s,
+        font-weight 1s;
 }
 
 #my-title {
     font-size: 2rem;
+    font-weight: 600;
     color: #cecece;
 }
 
@@ -155,6 +158,7 @@ body {
 
 .main.show #dialogue {
     font-size: 3.2rem;
+    font-weight: 700;
 }
 
 .main.intro-done .my-container {
@@ -182,8 +186,9 @@ body {
 }
 
 .contact-container p {
-    color: #cecece;
+    color: #d4d4d4;
     font-size: 1rem;
+    font-weight: 700;
     text-align: left;
     margin-bottom: 0.3rem;
 }
@@ -274,8 +279,9 @@ body {
 }
 
 .body-heading {
-    color: #cecece;
+    color: #bcbcbc;
     font-size: 1.4rem;
+    font-weight: 700;
 }
 
 .body-text {
@@ -433,6 +439,32 @@ body {
 .project-listing .listing-detail,
 .work-listing .listing-detail {
     margin-top: 0.8rem;
+}
+
+/* Varying Desktop Sizes */
+
+@media (max-width: 1800px) {
+    .main.intro-done .my-container {
+        flex-basis: 40%;
+        width: 40%;
+    }
+
+    .main.intro-done .main-body-container {
+        flex-basis: 60%;
+        width: 60%;
+    }   
+}
+
+@media (max-width: 1600px) {
+    .main.intro-done .my-container {
+        flex-basis: 45%;
+        width: 45%;
+    }
+
+    .main.intro-done .main-body-container {
+        flex-basis: 55%;
+        width: 55%;
+    } 
 }
 
 /* Mobile */

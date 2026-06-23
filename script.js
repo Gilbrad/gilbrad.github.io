@@ -52,9 +52,13 @@ function imgTransitionEnd(e) {
 
 // Adds the intro-done class to the main element.
 // Class "intro-done" is used to shift the layout of the website to its final state after the intro animation is complete.
+// If the user is on a mobile device, the body is made scrollable after the intro animation is complete.
 function bioTransitionEnd(e) {
     if (e.propertyName === "height") {
         main.classList.add("intro-done");
+        if (isMobile.matches) {
+            document.body.classList.add("scrollable");
+        }
     }
 }
 

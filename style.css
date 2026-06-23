@@ -476,6 +476,10 @@ body {
 
     body {
         background-color: #212121;
+        overflow: hidden; 
+    }
+
+    body.scrollable {
         overflow: auto; 
     }
 

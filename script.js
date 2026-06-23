@@ -21,12 +21,12 @@ function typeWriter(text, index) {
         dialogue.innerHTML += text.charAt(index);
         setTimeout(function () {
             typeWriter(text, index + 1);
-        }, 70);
+        }, 40);
     } else {
         isTyping = false;
         if (dialogueIndex === introDialogue.length - 1) {
             if (isMobile.matches) {
-                setTimeout(() => main.classList.add("show"), 300);
+                main.classList.add("show");
             } else {
                 main.classList.add("active");
             }
@@ -42,11 +42,9 @@ function imgTransitionEnd(e) {
         setTimeout(() => {
             main.classList.remove("active");
             firstTransitionDone = true;
-        }, 600);
+        }, 400);
     } else if (e.propertyName === "transform" && firstTransitionDone) {
-        setTimeout(() => {
-            main.classList.add("show");
-        }, 100);
+        main.classList.add("show");
     }
 }
 

@@ -298,6 +298,17 @@ body {
     font-size: 0.9rem;
 }
 
+.listing-detail a > img {
+    color: hsl(0, 0%, 61%);
+    display: block;
+    text-decoration: underline;
+    transition: transform 0.2s;
+}
+
+.listing-detail a > img:hover {
+    transform: scale(1.1);
+}
+
 .main.intro-done .main-body-container {
     flex-basis: 65%;
     width: 65%;
@@ -317,7 +328,7 @@ body {
     text-align: center;
 }
 
-#skills-list img {
+#skills-list > img {
     height: 1.75rem;
     transition: scale 0.2s;
 }

@@ -5,6 +5,7 @@ const myImage = document.getElementById("me");
 const bioContainer = document.querySelector(".bio-container");
 const mainBodyContainer = document.querySelector(".main-body-container");
 const isMobile = window.matchMedia("(max-width: 800px)");
+const projectListings = document.querySelectorAll(".project-listing[data-project]");
 
 // Intro dialogue array.
 const introDialogue = ["Hello there!", "Here to take a peek?", "Gilean Cyrus Alanza"];
@@ -80,6 +81,33 @@ function handleDialogue(){
     }
 }
 
+// Asyncronously loads project images from a JSON file.
+// The images are then appended to the corresponding project listing in the HTML.
+async function loadProjectImages() {
+    const response = await fetch('images.json');
+    const images = await response.json();
+
+    projectListings.forEach((project) => {
+        const projectName = project.dataset.project;
+        const projectImages = images[projectName];
+
+        if (!projectImages || projectImages.length === 0) return;
+
+        const gallery = document.createElement("div");
+        gallery.classList.add("project-gallery");
+
+        projectImages.forEach((imageName, index) => {
+            const img = document.createElement("img");
+            img.src = `assets/projectImages/${projectName}/${imageName}`;
+            img.loading = "lazy";
+
+            gallery.appendChild(img);
+        });
+
+        project.appendChild(gallery);
+    });
+}
+
 // Blinks the arrow every 500ms if typewriter is done, otherwise hidden.
 setInterval(() => {
     if (!isTyping) {
@@ -92,6 +120,8 @@ document.addEventListener("DOMContentLoaded", function() {
     arrow.style.visibility = "hidden";
     arrow.innerHTML = " >";
     typeWriter(introDialogue[dialogueIndex], 0);
+
+    loadProjectImages();
 });
 
 // Event Listeners

@@ -442,6 +442,38 @@ body {
     margin-top: 0.8rem;
 }
 
+.project-gallery {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    overflow-x: auto;
+}
+
+.project-gallery img {
+    width: min(24rem, 85vw);
+    height: auto;
+    border: 1px solid hsl(0, 0%, 25%);
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s;
+}
+
+.project-gallery::-webkit-scrollbar {
+    height: 0.5rem;
+}
+
+.project-gallery::-webkit-scrollbar-track {
+    background: hsl(0, 0%, 18%);
+}
+
+.project-gallery::-webkit-scrollbar-thumb {
+    background: #03ddff;
+    border-radius: 1rem;
+}
+
+.project-gallery::-webkit-scrollbar-thumb:hover {
+    background: #ffffff;
+}
+
 /* Varying Desktop Sizes */
 
 @media (max-width: 1800px) {
